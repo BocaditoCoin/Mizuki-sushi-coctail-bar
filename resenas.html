@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Déjanos tu reseña – Mizuki</title>
+  <!-- 
+    ============================================================
+    INSTRUCCIONES: reemplaza la URL de abajo con tu enlace real
+    de reseñas de Google.
+
+    Para obtener tu enlace directo de reseñas:
+    1. Ve a Google Maps y busca "Mizuki Sushi Cocktail"
+    2. Haz clic en tu negocio → "Obtener más reseñas"
+    3. Google te generará un enlace corto tipo:
+       https://g.page/r/XXXXXXXXXX/review
+    4. Sustituye la URL en la variable REVIEW_URL de abajo.
+    ============================================================
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #c9a84c;
+      --dark: #0a0a0a;
+      --text: #f0ead8;
+      --text-muted: #8a7a5a;
+    }
+    html, body { height: 100%; background: var(--dark); color: var(--text); font-family: 'Cormorant Garamond', Georgia, serif; }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 30%, rgba(201,168,76,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .page {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 40px 24px; text-align: center; gap: 0;
+    }
+    .logo { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; margin-bottom: 28px; animation: fadeUp 0.8s ease forwards; opacity: 0; }
+    h1 { font-family: 'Cinzel', serif; font-weight: 400; font-size: clamp(1.6rem, 4vw, 2.6rem); letter-spacing: 0.1em; line-height: 1.15; margin-bottom: 16px; animation: fadeUp 0.8s ease 0.1s forwards; opacity: 0; }
+    h1 span { color: var(--gold); }
+    .sub { font-style: italic; font-size: 1.15rem; color: var(--text-muted); margin-bottom: 48px; animation: fadeUp 0.8s ease 0.2s forwards; opacity: 0; }
+    .stars { font-size: 32px; letter-spacing: 4px; margin-bottom: 40px; animation: fadeUp 0.8s ease 0.3s forwards; opacity: 0; }
+    .spinner-wrap { animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0; }
+    .spinner {
+      width: 36px; height: 36px; margin: 0 auto 20px;
+      border: 2px solid rgba(201,168,76,0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+    .redirect-msg { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.25em; color: var(--text-muted); text-transform: uppercase; }
+    .manual-link { margin-top: 32px; font-size: 13px; color: var(--text-muted); animation: fadeUp 0.8s ease 0.6s forwards; opacity: 0; }
+    .manual-link a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(201,168,76,0.3); }
+    .manual-link a:hover { border-bottom-color: var(--gold); }
+    @keyframes fadeUp { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+  <script>
+    // ⚠️  CAMBIA ESTA URL POR TU ENLACE REAL DE GOOGLE RESEÑAS
+    const REVIEW_URL = "https://g.page/r/XXXXXXXXXXXXXXXXXX/review";
+
+    let seconds = 3;
+    window.addEventListener('DOMContentLoaded', () => {
+      const counter = document.getElementById('counter');
+      const tick = setInterval(() => {
+        seconds--;
+        if (counter) counter.textContent = seconds;
+        if (seconds <= 0) {
+          clearInterval(tick);
+          window.location.href = REVIEW_URL;
+        }
+      }, 1000);
+    });
+  </script>
+</head>
+<body>
+  <div class="page">
+    <p class="logo">Mizuki Sushi &amp; Cocktail</p>
+    <h1>¿Nos dejas tu <span>opinión</span>?</h1>
+    <p class="sub">Tu reseña es muy importante para nosotros</p>
+    <div class="stars">⭐⭐⭐⭐⭐</div>
+    <div class="spinner-wrap">
+      <div class="spinner"></div>
+      <p class="redirect-msg">Abriendo Google en <span id="counter">3</span>…</p>
+    </div>
+    <p class="manual-link">¿No se abre automáticamente?
+      <a href="https://g.page/r/XXXXXXXXXXXXXXXXXX/review" id="manualLink">Haz clic aquí</a>
+    </p>
+  </div>
+  <script>
+    // Sincroniza el enlace manual con la misma variable
+    document.getElementById('manualLink').href =
+      "https://g.page/r/XXXXXXXXXXXXXXXXXX/review";
+  </script>
+</body>
+</html>
