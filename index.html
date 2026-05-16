@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mizuki – Carta / Menu / Carte / Menukaart</title>
+  <title>Mizuki - Carta / Menu / Carte / Menukaart</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     :root {
       --gold: #c9943a;
       --gold-light: #e8c070;
@@ -18,7 +18,7 @@
       --text: #f5ead5;
       --text-muted: #8a7550;
     }
- 
+
     html, body {
       height: 100%;
       background: var(--dark);
@@ -26,7 +26,7 @@
       font-family: 'Cormorant Garamond', Georgia, serif;
       overflow-x: hidden;
     }
- 
+
     /* ── FONDO: imagen de olas japonesas ── */
     body {
       background-image: url('https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/FondoMIZUKI.png');
@@ -34,7 +34,7 @@
       background-position: center center;
       background-attachment: fixed;
     }
- 
+
     /* Overlay oscuro para mejorar legibilidad */
     body::before {
       content: '';
@@ -44,7 +44,7 @@
       pointer-events: none;
       z-index: 0;
     }
- 
+
     .page {
       position: relative;
       z-index: 1;
@@ -55,7 +55,7 @@
       justify-content: center;
       padding: 48px 24px;
     }
- 
+
     /* ── Línea decorativa superior ── */
     .deco-line {
       width: 1px;
@@ -65,14 +65,14 @@
       animation: fadeDown 1s ease forwards;
       opacity: 0;
     }
- 
+
     /* ── LOGO ── */
     .logo-wrap {
       margin-bottom: 24px;
       animation: fadeUp 0.9s ease 0.05s forwards;
       opacity: 0;
     }
- 
+
     .logo-wrap img {
       width: 90px;
       height: auto;
@@ -80,7 +80,7 @@
       filter: drop-shadow(0 4px 20px rgba(201,148,58,0.45)) brightness(1.05);
       border-radius: 50%;
     }
- 
+
     /* ── HEADER ── */
     .header {
       text-align: center;
@@ -88,7 +88,7 @@
       animation: fadeUp 0.9s ease 0.15s forwards;
       opacity: 0;
     }
- 
+
     .header .eyebrow {
       font-family: 'Cinzel', serif;
       font-size: 10px;
@@ -98,7 +98,7 @@
       margin-bottom: 14px;
       text-shadow: 0 1px 8px rgba(0,0,0,0.9);
     }
- 
+
     .header h1 {
       font-family: 'Cinzel', serif;
       font-weight: 600;
@@ -108,11 +108,11 @@
       line-height: 1.2;
       text-shadow: 0 2px 16px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.8);
     }
- 
+
     .header h1 span {
       color: var(--gold-light);
     }
- 
+
     .header .subtitle {
       font-style: italic;
       font-size: clamp(0.85rem, 2vw, 1rem);
@@ -121,7 +121,7 @@
       letter-spacing: 0.06em;
       text-shadow: 0 1px 8px rgba(0,0,0,0.9);
     }
- 
+
     /* ── Separador dorado ── */
     .divider {
       display: flex;
@@ -149,7 +149,7 @@
       transform: rotate(45deg);
       flex-shrink: 0;
     }
- 
+
     /* ── GRID DE BANDERAS ── */
     .flags-grid {
       display: grid;
@@ -158,7 +158,7 @@
       max-width: 660px;
       width: 100%;
     }
- 
+
     .flag-card {
       position: relative;
       display: flex;
@@ -178,7 +178,7 @@
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
     }
- 
+
     /* Brillo interno al hacer hover */
     .flag-card::before {
       content: '';
@@ -188,7 +188,7 @@
       opacity: 0;
       transition: opacity 0.35s ease;
     }
- 
+
     /* Línea dorada superior animada */
     .flag-card::after {
       content: '';
@@ -200,7 +200,7 @@
       transform-origin: center;
       transition: transform 0.4s ease;
     }
- 
+
     .flag-card:hover::before { opacity: 1; }
     .flag-card:hover::after  { transform: scaleX(1); }
     .flag-card:hover {
@@ -208,13 +208,13 @@
       transform: translateY(-5px);
       box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 20px rgba(201,148,58,0.1);
     }
- 
+
     .flag-card.disabled {
       cursor: default;
       pointer-events: none;
       opacity: 0.38;
     }
- 
+
     .flag-emoji {
       font-size: 52px;
       line-height: 1;
@@ -222,7 +222,7 @@
       transition: transform 0.3s ease;
     }
     .flag-card:hover .flag-emoji { transform: scale(1.1); }
- 
+
     .flag-label {
       font-family: 'Cinzel', serif;
       font-size: 13px;
@@ -231,14 +231,14 @@
       text-transform: uppercase;
       color: var(--gold-light);
     }
- 
+
     .flag-sublabel {
       font-style: italic;
       font-size: 13px;
       color: var(--text-muted);
       margin-top: -8px;
     }
- 
+
     .flag-badge {
       position: absolute;
       top: 10px;
@@ -251,12 +251,12 @@
       color: var(--gold);
       text-transform: uppercase;
     }
- 
+
     .coming-badge {
       border-color: rgba(138,117,80,0.3);
       color: var(--text-muted);
     }
- 
+
     /* ── FOOTER ── */
     .footer {
       margin-top: 60px;
@@ -264,21 +264,21 @@
       animation: fadeUp 0.9s ease 0.75s forwards;
       opacity: 0;
     }
- 
+
     .footer p {
       font-style: italic;
       font-size: 11px;
       color: var(--text-muted);
       letter-spacing: 0.1em;
     }
- 
+
     .deco-line-bottom {
       width: 1px;
       height: 48px;
       background: linear-gradient(to top, transparent, var(--gold));
       margin: 22px auto 0;
     }
- 
+
     /* ── Animations ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(22px); }
@@ -288,7 +288,7 @@
       from { opacity: 0; transform: translateY(-22px); }
       to   { opacity: 1; transform: translateY(0); }
     }
- 
+
     @media (max-width: 480px) {
       .flags-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
       .flag-card  { padding: 26px 14px 20px; }
@@ -299,9 +299,9 @@
 </head>
 <body>
   <div class="page">
- 
+
     <div class="deco-line"></div>
- 
+
     <!-- Logo desde GitHub -->
     <div class="logo-wrap">
       <img
@@ -309,18 +309,18 @@
         alt="Mizuki Sushi & Cocktail"
       />
     </div>
- 
+
     <header class="header">
-      <p class="eyebrow">Mizuki Sushi &amp; Cocktail — Marbella</p>
+      <p class="eyebrow">Mizuki Sushi &amp; Cocktail - Marbella</p>
       <h1>Selecciona tu <span>idioma</span></h1>
       <p class="subtitle">Select your language &nbsp;·&nbsp; Choisissez votre langue &nbsp;·&nbsp; Kies uw taal</p>
     </header>
- 
+
     <div class="divider"><div class="divider-diamond"></div></div>
- 
+
     <div class="flags-grid">
- 
-      <!-- ESPAÑOL — activo -->
+
+      <!-- ESPAÑOL - activo -->
       <a class="flag-card"
          style="--delay: 0.35s"
          href="carta-esp.html">
@@ -329,38 +329,44 @@
         <span class="flag-label">Español</span>
         <span class="flag-sublabel">Ver carta</span>
       </a>
- 
-      <!-- ENGLISH -->
-      <div class="flag-card disabled" style="--delay: 0.45s">
-        <span class="flag-badge coming-badge">Soon</span>
+
+      <!-- ENGLISH — activo -->
+      <a class="flag-card"
+         style="--delay: 0.45s"
+         href="carta-ing.html">
+        <span class="flag-badge">English</span>
         <span class="flag-emoji">🇬🇧</span>
         <span class="flag-label">English</span>
-        <span class="flag-sublabel">Coming soon</span>
-      </div>
- 
-      <!-- FRANÇAIS -->
-      <div class="flag-card disabled" style="--delay: 0.55s">
-        <span class="flag-badge coming-badge">Bientôt</span>
+        <span class="flag-sublabel">View menu</span>
+      </a>
+
+      <!-- FRANÇAIS — activo -->
+      <a class="flag-card"
+         style="--delay: 0.55s"
+         href="carta-fr.html">
+        <span class="flag-badge">Français</span>
         <span class="flag-emoji">🇫🇷</span>
         <span class="flag-label">Français</span>
-        <span class="flag-sublabel">Bientôt disponible</span>
-      </div>
- 
-      <!-- NEDERLANDS -->
-      <div class="flag-card disabled" style="--delay: 0.65s">
-        <span class="flag-badge coming-badge">Binnenkort</span>
+        <span class="flag-sublabel">Voir la carte</span>
+      </a>
+
+      <!-- NEDERLANDS — activo -->
+      <a class="flag-card"
+         style="--delay: 0.65s"
+         href="carta-nl.html">
+        <span class="flag-badge">Nederlands</span>
         <span class="flag-emoji">🇳🇱</span>
         <span class="flag-label">Nederlands</span>
-        <span class="flag-sublabel">Binnenkort beschikbaar</span>
-      </div>
- 
+        <span class="flag-sublabel">Bekijk menukaart</span>
+      </a>
+
     </div>
- 
+
     <footer class="footer">
-      <p>© 2025 Mizuki Sushi &amp; Cocktail — Torremolinos</p>
+      <p>© 2025 Mizuki Sushi &amp; Cocktail - Torremolinos</p>
       <div class="deco-line-bottom"></div>
     </footer>
- 
+
   </div>
 </body>
 </html>

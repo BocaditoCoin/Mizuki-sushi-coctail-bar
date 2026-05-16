@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mizuki — Menukaart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#c9943a;--gold-light:#e8c070;--gold-dark:#a07828;--text:#f5ead5;--text-dim:#9a8a6a;--bg:#111;--brown:#5a3a1a}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Montserrat',sans-serif;overflow-x:hidden}
+body{background-image:url('https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/FondoMIZUKI.png');background-size:cover;background-position:center top;background-attachment:fixed}
+body::before{content:'';position:fixed;inset:0;background:rgba(5,5,5,0.72);pointer-events:none;z-index:0}
+.page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:30px 20px 60px}
+.title-bar{position:relative;text-align:center;margin:0 auto 10px;max-width:700px}
+.title-bar-frame{position:relative;background:linear-gradient(180deg,#d4a84b 0%,#c9943a 40%,#b8862e 100%);border:3px solid #7a5a20;border-radius:6px;padding:12px 50px;box-shadow:0 4px 20px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.2)}
+.title-bar-frame::before,.title-bar-frame::after{content:'';position:absolute;top:-8px;bottom:-8px;width:22px;background:linear-gradient(180deg,#8B6914,#6B4F12,#8B6914);border-radius:4px;box-shadow:2px 2px 6px rgba(0,0,0,0.5)}
+.title-bar-frame::before{left:-12px}
+.title-bar-frame::after{right:-12px}
+.title-bar-knob-l,.title-bar-knob-r{position:absolute;top:-16px;width:28px;height:28px;background:radial-gradient(circle at 40% 35%,#c9943a,#7a5a20);border-radius:50%;border:2px solid #5a3a1a;box-shadow:0 2px 8px rgba(0,0,0,0.6)}
+.title-bar-knob-l{left:-17px}
+.title-bar-knob-r{right:-17px}
+.title-bar-frame h2{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(14px,2.5vw,20px);letter-spacing:0.25em;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.5);text-transform:uppercase;margin:0}
+.section-title{text-align:center;margin:28px 0 18px;position:relative}
+.section-title span{display:inline-block;background:linear-gradient(180deg,#d4a84b,#c9943a);color:#fff;font-family:'Cinzel',serif;font-weight:600;font-size:15px;letter-spacing:0.3em;text-transform:uppercase;padding:8px 32px;border-radius:3px;box-shadow:0 2px 10px rgba(0,0,0,0.4)}
+.section-title::before,.section-title::after{content:'';position:absolute;top:50%;height:1px;width:calc(50% - 120px);background:linear-gradient(to right,transparent,var(--gold))}
+.section-title::before{left:0}
+.section-title::after{right:0;background:linear-gradient(to left,transparent,var(--gold))}
+.section-subtitle{text-align:center;font-size:11px;color:var(--text-dim);font-style:italic;margin:-8px 0 14px;letter-spacing:0.05em;line-height:1.5}
+.dish-row{display:flex;align-items:baseline;gap:8px;padding:7px 0;border-bottom:1px solid rgba(201,148,58,0.12);line-height:1.4}
+.dish-row:last-child{border-bottom:none}
+.dish-name{font-weight:600;font-size:12.5px;color:#fff;text-transform:uppercase;white-space:nowrap;flex-shrink:0;letter-spacing:0.04em}
+.dish-allergens{display:inline-flex;gap:3px;align-items:center;flex-shrink:0;margin:0 4px}
+.dish-allergens .a-icon{width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:700;flex-shrink:0}
+.dish-desc{font-size:11px;color:var(--text-dim);font-style:italic;flex:1;min-width:0}
+.dish-price{font-weight:700;font-size:13px;color:var(--gold-light);white-space:nowrap;flex-shrink:0;letter-spacing:0.03em}
+.photo-section{display:flex;gap:20px;margin-bottom:20px;align-items:flex-start}
+.photo-col{flex-shrink:0;display:flex;flex-direction:column;gap:14px;align-items:center}
+.photo-col img{width:130px;height:130px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 4px 16px rgba(0,0,0,0.5)}
+.text-col{flex:1;min-width:0}
+.a-wheat{background:#E8951E}.a-crustaceans{background:#4A90D9}.a-eggs{background:#E8951E}
+.a-fish{background:#2E5090}.a-peanuts{background:#8B5E3C}.a-soy{background:#4CAF50}
+.a-milk{background:#8B5E3C}.a-nuts{background:#D32F2F}.a-celery{background:#4CAF50}
+.a-mustard{background:#8B5E3C}.a-sesame{background:#9E9E9E}.a-sulfites{background:#7B1FA2}
+.a-lupin{background:#F9A825}.a-mollusks{background:#5DADE2}
+.allergen-legend{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;justify-items:center;margin:20px 0}
+.allergen-legend .a-item{display:flex;flex-direction:column;align-items:center;gap:4px}
+.allergen-legend .a-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:700}
+.allergen-legend .a-label{font-size:8px;color:var(--text-dim);text-align:center;letter-spacing:0.05em;text-transform:uppercase;max-width:60px;line-height:1.2}
+.anisakis-box{background:rgba(255,255,255,0.95);border-radius:8px;padding:16px 20px;margin:20px 0;color:#222;max-width:600px;margin-left:auto;margin-right:auto;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
+.anisakis-box h3{color:#2E7D32;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:4px}
+.anisakis-box h4{color:#2E7D32;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
+.anisakis-box p{font-size:10.5px;line-height:1.6;color:#444}
+.anisakis-box .warning-box{background:#FFF3E0;border:1px solid #FFB74D;border-radius:6px;padding:10px 14px;margin-top:10px;font-size:10.5px;color:#E65100}
+.anisakis-box .warning-box strong{color:#BF360C}
+.logo-center{text-align:center;margin:20px 0}
+.logo-center img{width:120px;height:auto;filter:drop-shadow(0 4px 16px rgba(201,148,58,0.5))}
+.drinks-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 30px}
+.drinks-section{margin-bottom:16px}
+.drinks-section h3{color:var(--gold-light);font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;margin:0 0 8px;padding-bottom:5px;border-bottom:1px solid rgba(201,148,58,0.3)}
+.drinks-row{display:flex;justify-content:space-between;padding:4px 0;font-size:11.5px;border-bottom:1px solid rgba(201,148,58,0.08)}
+.drinks-row .name{color:var(--text)}
+.drinks-row .price{color:var(--gold-light);font-weight:600}
+.cocktail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px}
+.cocktail-item{padding:6px 0;border-bottom:1px solid rgba(201,148,58,0.1)}
+.cocktail-item .c-name{font-weight:600;font-size:12px;color:#fff;text-transform:uppercase;letter-spacing:0.06em}
+.cocktail-item .c-desc{font-size:10px;color:var(--text-dim);font-style:italic;margin:2px 0}
+.cocktail-item .c-price{font-weight:700;font-size:12px;color:var(--gold-light)}
+.page-divider{height:40px;margin:30px 0 10px;position:relative}
+.page-divider::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(45deg);width:7px;height:7px;background:var(--gold);box-shadow:0 0 8px rgba(201,148,58,0.4)}
+@media(max-width:600px){
+  .photo-section{flex-direction:column;align-items:center}
+  .photo-col{flex-direction:row;flex-wrap:wrap;justify-content:center}
+  .drinks-grid,.cocktail-grid{grid-template-columns:1fr}
+  .allergen-legend{grid-template-columns:repeat(4,1fr)}
+  .dish-row{flex-wrap:wrap}
+  .dish-price{margin-left:auto}
+}
+.back-link{display:inline-flex;align-items:center;gap:8px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(201,148,58,0.3);padding:8px 18px;margin-bottom:30px;transition:all .3s}
+.back-link:hover{border-color:var(--gold);background:rgba(201,148,58,0.08)}
+</style>
+</head>
+<body>
+<div class="page">
+
+<a class="back-link" href="index.html">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+Terug naar Home
+</a>
+
+<!-- OMSLAG -->
+<div style="text-align:center;padding:60px 0 40px">
+  <div class="logo-center"><img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/LogoMIZUKI.png" alt="Mizuki"/></div>
+  <h1 style="font-family:'Cinzel',serif;font-size:clamp(24px,5vw,40px);letter-spacing:0.3em;color:var(--gold-light);text-shadow:0 2px 16px rgba(0,0,0,0.8);margin-top:20px">MIZUKI</h1>
+  <p style="font-family:'Cinzel',serif;font-size:clamp(10px,2vw,14px);letter-spacing:0.45em;color:var(--text);text-transform:uppercase;margin-top:8px">Sushi Bar &amp; Cocktail</p>
+  <p style="font-size:11px;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase;margin-top:6px">Mediterraan</p>
+</div>
+
+<div class="page-divider"></div>
+
+<!-- TITELBALK -->
+<div class="title-bar">
+  <div class="title-bar-knob-l"></div>
+  <div class="title-bar-knob-r"></div>
+  <div class="title-bar-frame"><h2>Mizuki Sushi &amp; Cocktail</h2></div>
+</div>
+
+<!-- FRISDRANKEN -->
+<div class="section-title"><span>Frisdranken</span></div>
+<div class="drinks-grid">
+  <div class="drinks-section">
+    <div class="drinks-row"><span class="name">Coca Cola</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Coca Cola Zero</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Coca Cola Zero Zero</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Fanta Sinaasappel</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Fanta Citroen</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Aquarius</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Aquarius Sinaasappel</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Tonic</span><span class="price">2,50€</span></div>
+  </div>
+  <div class="drinks-section">
+    <div class="drinks-row"><span class="name">Nestea</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Nestea Passievrucht</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Water</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Bruiswater</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Ananassap</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Perziksap</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Sinaasappelsap</span><span class="price">2,50€</span></div>
+  </div>
+</div>
+
+<!-- BIEREN -->
+<div class="section-title"><span>Bieren</span></div>
+<div class="drinks-grid">
+  <div class="drinks-section">
+    <div class="drinks-row"><span class="name">Victoria 10</span><span class="price">3,50€</span></div>
+    <div class="drinks-row"><span class="name">Victoria Tap</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Victoria Glas</span><span class="price">3,00€</span></div>
+    <div class="drinks-row"><span class="name">Victoria Pint</span><span class="price">4,50€</span></div>
+    <div class="drinks-row"><span class="name">Victoria Derde</span><span class="price">3,50€</span></div>
+    <div class="drinks-row"><span class="name">Volldamm Tap</span><span class="price">2,50€</span></div>
+  </div>
+  <div class="drinks-section">
+    <div class="drinks-row"><span class="name">Volldamm Glas</span><span class="price">3,00€</span></div>
+    <div class="drinks-row"><span class="name">Volldamm Pint</span><span class="price">5,00€</span></div>
+    <div class="drinks-row"><span class="name">Radler</span><span class="price">3,50€</span></div>
+    <div class="drinks-row"><span class="name">Azjim</span><span class="price">3,50€</span></div>
+    <div class="drinks-row"><span class="name">Kiri</span><span class="price">3,50€</span></div>
+    <div class="drinks-row"><span class="name">Soparo</span><span class="price">3,50€</span></div>
+  </div>
+</div>
+
+<!-- WIJNEN -->
+<div class="section-title"><span>Onze Wijnen</span></div>
+<div class="drinks-grid">
+  <div class="drinks-section">
+    <div class="drinks-row"><span class="name">Acontia Flor y Nata 12 mnd r. Duero</span><span class="price">4,50€ / 19,00€</span></div>
+    <div class="drinks-row"><span class="name">Acontia Mar de Seda Blanco</span><span class="price">20,00€</span></div>
+    <div class="drinks-row"><span class="name">La Vie en Rose</span><span class="price">25,00€</span></div>
+    <div class="drinks-row"><span class="name">Frizzante</span><span class="price">4,00€</span></div>
+    <div class="drinks-row"><span class="name">Señorío Delizia</span><span class="price">3,50€</span></div>
+  </div>
+  <div class="drinks-section">
+    <div class="drinks-row"><span class="name">Hallazgo Joven</span><span class="price">3,50€</span></div>
+    <div class="drinks-row"><span class="name">Mumm Champagne</span><span class="price">5,00€ / 55,00€</span></div>
+    <div class="drinks-row"><span class="name">Botani Málaga</span><span class="price">22,00€</span></div>
+    <div class="drinks-row"><span class="name">Italiaanse Prosecco</span><span class="price">22,00€</span></div>
+  </div>
+</div>
+<p style="text-align:center;font-size:9px;color:var(--text-dim);font-style:italic;margin-top:4px">Glas / Flessenprijzen waar van toepassing vermeld</p>
+
+<div class="page-divider"></div>
+
+<!-- RUMS -->
+<div class="section-title"><span>Onze Rums</span></div>
+<div class="drinks-grid">
+  <div class="drinks-section">
+    <div class="drinks-row"><span class="name">Bacardi 8</span><span class="price">6,50€</span></div>
+    <div class="drinks-row"><span class="name">Sailor Jerry</span><span class="price">7,00€</span></div>
+    <div class="drinks-row"><span class="name">Havana 7</span><span class="price">7,00€</span></div>
+    <div class="drinks-row"><span class="name">Abuelo 7</span><span class="price">7,00€</span></div>
+    <div class="drinks-row"><span class="name">Legendario</span><span class="price">7,00€</span></div>
+    <div class="drinks-row"><span class="name">Kraken</span><span class="price">7,50€</span></div>
+    <div class="drinks-row"><span class="name">Cacique 500</span><span class="price">7,50€</span></div>
+    <div class="drinks-row"><span class="name">Matusalem 15</span><span class="price">7,50€</span></div>
+    <div class="drinks-row"><span class="name">Santa Teresa 1796</span><span class="price">8,00€</span></div>
+  </div>
+  <div class="drinks-section">
+    <div class="drinks-row"><span class="name">Don Q Spice</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Diplomático Mantuano</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Barceló Imperial</span><span class="price">9,00€</span></div>
+    <div class="drinks-row"><span class="name">Brugal 1888</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Zacapa 23</span><span class="price">10,00€</span></div>
+    <div class="drinks-row"><span class="name">Don Q Gran Añejo</span><span class="price">16,00€</span></div>
+    <div class="drinks-row"><span class="name">Zacapa XO</span><span class="price">16,00€</span></div>
+    <div class="drinks-row"><span class="name">Brugal Siglo de Oro</span><span class="price">20,00€</span></div>
+  </div>
+</div>
+
+<!-- BRANDY / VODKA / WHISKY -->
+<div class="drinks-grid">
+  <div class="drinks-section">
+    <h3>Brandy</h3>
+    <div class="drinks-row"><span class="name">Torres 15</span><span class="price">7,00€</span></div>
+    <div class="drinks-row"><span class="name">Brandy 1885</span><span class="price">9,00€</span></div>
+    <div class="drinks-row"><span class="name">Ysabel Regina</span><span class="price">12,00€</span></div>
+  </div>
+  <div class="drinks-section">
+    <h3>Vodka</h3>
+    <div class="drinks-row"><span class="name">Absolut</span><span class="price">7,00€</span></div>
+    <div class="drinks-row"><span class="name">Grey Goose</span><span class="price">7,00€</span></div>
+    <div class="drinks-row"><span class="name">Beluga</span><span class="price">8,00€</span></div>
+  </div>
+</div>
+
+<div class="drinks-grid">
+  <div class="drinks-section">
+    <h3>Whisky</h3>
+    <div class="drinks-row"><span class="name">Dewar's</span><span class="price">7,50€</span></div>
+    <div class="drinks-row"><span class="name">Four Roses Small</span><span class="price">7,50€</span></div>
+    <div class="drinks-row"><span class="name">Chivas 12</span><span class="price">7,50€</span></div>
+    <div class="drinks-row"><span class="name">Black Label</span><span class="price">7,50€</span></div>
+    <div class="drinks-row"><span class="name">Jack Daniel's</span><span class="price">7,50€</span></div>
+    <div class="drinks-row"><span class="name">Cardhu 12</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Macallan</span><span class="price">12,00€</span></div>
+  </div>
+  <div class="drinks-section">
+    <h3>Japanse Whisky</h3>
+    <div class="drinks-row"><span class="name">Hibiki</span><span class="price">10,00€</span></div>
+    <div class="drinks-row"><span class="name">Woodford</span><span class="price">9,00€</span></div>
+    <div class="drinks-row"><span class="name">Nikka From</span><span class="price">10,00€</span></div>
+    <h3 style="margin-top:12px">Tequila</h3>
+    <div class="drinks-row"><span class="name">Patrón Café</span><span class="price">7,00€</span></div>
+    <div class="drinks-row"><span class="name">Patrón Silver</span><span class="price">9,00€</span></div>
+    <h3 style="margin-top:12px">Mezcal</h3>
+    <div class="drinks-row"><span class="name">Los Danzates Reposado</span><span class="price">9,00€</span></div>
+  </div>
+</div>
+
+<div class="page-divider"></div>
+
+<!-- GINS -->
+<div class="section-title"><span>Gins</span></div>
+<div class="drinks-grid">
+  <div class="drinks-section">
+    <div class="drinks-row"><span class="name">Bombay Sapphire</span><span class="price">6,50€</span></div>
+    <div class="drinks-row"><span class="name">Seagram's</span><span class="price">6,50€</span></div>
+    <div class="drinks-row"><span class="name">Larios 12</span><span class="price">6,50€</span></div>
+    <div class="drinks-row"><span class="name">Tanqueray 0.0</span><span class="price">6,50€</span></div>
+    <div class="drinks-row"><span class="name">Bulldog</span><span class="price">7,00€</span></div>
+    <div class="drinks-row"><span class="name">Tanqueray</span><span class="price">7,00€</span></div>
+    <div class="drinks-row"><span class="name">Puerto de Indias</span><span class="price">7,50€</span></div>
+    <div class="drinks-row"><span class="name">Martin Miller's</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Star of Bombay</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Ginabelle</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Monkey</span><span class="price">8,00€</span></div>
+  </div>
+  <div class="drinks-section">
+    <div class="drinks-row"><span class="name">Beefeater 24</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Hendrick's</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">London N°1</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Tanqueray Ten</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Nordés</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Gin Mare</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Citadelle</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">Roku</span><span class="price">8,00€</span></div>
+    <div class="drinks-row"><span class="name">G'Vine</span><span class="price">9,50€</span></div>
+    <div class="drinks-row"><span class="name">Brockman's</span><span class="price">9,50€</span></div>
+  </div>
+</div>
+
+<!-- STANDAARD COMBINATIES -->
+<div class="section-title"><span>Standaard Combinaties</span></div>
+<div class="drinks-grid">
+  <div class="drinks-section">
+    <div class="drinks-row"><span class="name">Whisky's: White Label / DYC 8 / J&B / Jameson / Cutty Sark / Four Roses / Red Label / Ballantine's / Southern Comfort</span><span class="price">7,50€</span></div>
+    <div class="drinks-row"><span class="name">Gin: Larios / Tanqueray / Beefeater</span><span class="price">7,50€</span></div>
+    <div class="drinks-row"><span class="name">Rum: Bacardi / Barceló / Brugal / Honingrum / Malibu</span><span class="price">7,50€</span></div>
+    <div class="drinks-row"><span class="name">Vodka: Smirnoff / Absolut</span><span class="price">7,50€</span></div>
+  </div>
+  <div class="drinks-section">
+    <div class="drinks-row"><span class="name">Standaard Cognacs &amp; Likeuren</span><span class="price">4,50€</span></div>
+    <div class="drinks-row"><span class="name">Alcoholvrije Likeuren</span><span class="price">3,50€</span></div>
+    <div class="drinks-row"><span class="name">Likeuren met Alcohol</span><span class="price">4,00€</span></div>
+    <div class="drinks-row"><span class="name">Standaard Shotjes</span><span class="price">2,50€</span></div>
+    <div class="drinks-row"><span class="name">Premium Shotjes</span><span class="price">Marktprijs</span></div>
+  </div>
+</div>
+
+<div class="page-divider"></div>
+
+<!-- SPRITZ COCKTAILS -->
+<div class="section-title"><span>Spritz Cocktails</span></div>
+<div class="photo-section">
+  <div class="photo-col">
+    <img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/Fotos-pag5.png" alt="Spritz Cocktails"/>
+  </div>
+  <div class="text-col">
+    <div class="dish-row"><span class="dish-name">Hugo</span><span class="dish-desc">[Soda, St-Germain, limoen, muntsiroop]</span><span class="dish-price">7,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Aperol</span><span class="dish-desc">[Aperol, cava, soda]</span><span class="dish-price">7,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Polcinella</span><span class="dish-desc">[Italicus, perenlikeur, ginger]</span><span class="dish-price">7,00€</span></div>
+    <div class="dish-row"><span class="dish-name">La Poire</span><span class="dish-desc">[Grey Goose peer, St-Germain, limoen, sprite]</span><span class="dish-price">7,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Café Toni</span><span class="dish-desc">[Espresso, tonic, simple siroop]</span><span class="dish-price">7,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Misterio</span><span class="dish-desc">[Bonanto, infusiekoffie, tonic, sinaasappel, limoen]</span><span class="dish-price">7,00€</span></div>
+  </div>
+</div>
+
+<!-- KLASIEKE COCKTAILS -->
+<div class="section-title"><span>Klassieke Cocktails</span></div>
+<div class="cocktail-grid">
+  <div class="cocktail-item"><div class="c-name">Piña Colada</div></div>
+  <div class="cocktail-item"><div class="c-name">Mojito</div></div>
+  <div class="cocktail-item"><div class="c-name">Virgin Collins</div></div>
+  <div class="cocktail-item"><div class="c-name">Rosberry Collins Virgin</div></div>
+  <div class="cocktail-item"><div class="c-name">South Sido Virgin</div></div>
+  <div class="cocktail-item"><div class="c-name">Despierto</div></div>
+  <div class="cocktail-item"><div class="c-name">Caipirinha Passion</div></div>
+  <div class="cocktail-item"><div class="c-name">Virgin Mojito</div></div>
+  <div class="cocktail-item"><div class="c-name">Virgin Piña Colada</div></div>
+</div>
+
+<div class="page-divider"></div>
+
+<!-- SIGNATURE COCKTAILS -->
+<div class="section-title"><span>Signature Cocktails</span></div>
+<div class="photo-section">
+  <div class="photo-col">
+    <img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/Fotos-pag7.png" alt="Signature Cocktails"/>
+  </div>
+  <div class="text-col">
+    <div class="cocktail-grid" style="gap:6px 20px">
+      <div class="cocktail-item"><div class="c-name">Perfesion</div><div class="c-desc">Italicus, Martini, gin, limoen, nachtsiroop, grapefruitsap</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Japans</div><div class="c-desc">Japanse whisky, vlierbloesemlikeur, limoensap, top ginger ale, shisobladeren, angostura bitter</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Frontera</div><div class="c-desc">St-Germain, trajinero, huisbitter, vanillesiroop</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Calpis</div><div class="c-desc">Vodka, passiepurée, limoensap, aperol</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Baba Love</div><div class="c-desc">Gin, mangopurée, limoen</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Biiru</div><div class="c-desc">Whisky, amaro Montenegro, mezcal, sinaasappelbitter, top tonic</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Andalus</div><div class="c-desc">Mezcal, amontillado sherry, limoen, falernum, gembersiroop</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Sake</div><div class="c-desc">Gin, orgeat, limoensap, angostura</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Viznara</div><div class="c-desc">St-Germain, Lillet Blanc, limoen, Japanse bitter</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Queen</div><div class="c-desc">Tequila silver, koffielikeur, cocopurée, limoen</div><div class="c-price">10,00€</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="photo-section">
+  <div class="photo-col">
+    <img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/Fotos-pag8.png" alt="Signature Cocktails"/>
+  </div>
+  <div class="text-col">
+    <div class="cocktail-grid" style="gap:6px 20px">
+      <div class="cocktail-item"><div class="c-name">Meel Black</div><div class="c-desc">Johnnie, amaretto, limoen, simple siroop, soda</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Fresh</div><div class="c-desc">Vodka, passievruchtpurée, limoen, sinaasappelsap, oliedruppels</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Jorwens</div><div class="c-desc">Fino sherry, ananasrum, St-Germain, gembersiroop, limoen</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Bu Sasha</div><div class="c-desc">Bacardi carta blanca, witte chocoladesiroop, bittere sinaasappel-yuzu marmelade, limoensap, Campari, Porto Don Pablo Ruby, limoen, bessentonic</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Midori Fantasía</div><div class="c-desc">Midori, triple sec, vodka, citroensap, ananassap of kiwi</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Mule Zuki</div><div class="c-desc">Gin, St-Germain, limoen, siroop</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Blanca y Secca</div><div class="c-desc">Franse witte vermouth, ananassap, citroensap, sinaasappelsap, passievruchtsiroop</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Amazake</div><div class="c-desc">Tequila, Chambord, limoensap, ananassap</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Napoleón 43</div><div class="c-desc">Napoleón mandarijn, Licor 43, mandarijnsiroop, limoensap</div><div class="c-price">10,00€</div></div>
+      <div class="cocktail-item"><div class="c-name">Ramune</div><div class="c-desc">Gin, viooltjesiroop, limoensap, top ginger beer</div><div class="c-price">10,00€</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="page-divider"></div>
+
+<!-- VOEDSEL SECTIE -->
+<div class="title-bar">
+  <div class="title-bar-knob-l"></div>
+  <div class="title-bar-knob-r"></div>
+  <div class="title-bar-frame"><h2>Mizuki Sushi &amp; Cocktail</h2></div>
+</div>
+
+<!-- VOORGERECHTEN -->
+<div class="section-title"><span>Voorgerechten</span></div>
+<div class="photo-section">
+  <div class="photo-col">
+    <img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/Fotos-pag9.png" alt="Voorgerechten"/>
+  </div>
+  <div class="text-col">
+    <div class="dish-row"><span class="dish-name">Miso Soep / Pittig</span><span class="dish-allergens"><span class="a-icon a-soy">S</span><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Rode misopasta, tofu, verse wakame / pittige saus, shichimi]</span><span class="dish-price">5,50€</span></div>
+    <div class="dish-row"><span class="dish-name">Edamame / Pittig</span><span class="dish-allergens"><span class="a-icon a-soy">S</span></span><span class="dish-desc">[Onrijpe sojabonen gebakken met zout / pittige saus]</span><span class="dish-price">5,50€</span></div>
+    <div class="dish-row"><span class="dish-name">Briochebrood met Ventresca (1 st)</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-milk">M</span></span><span class="dish-desc">[Geroosterd briochebrood met boter, speciale Mizuki-saus, tonijn-ventresca, kwarteleitje, tempura pipporra]</span><span class="dish-price">6,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Garnalen Harumaki (1 st)</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span></span><span class="dish-desc">[Japans meeldeeg, garnalen en gemarineerde paddenstoel tempura met mini sla en speciale Mizuki-saus]</span><span class="dish-price">4,50€</span></div>
+    <div class="dish-row"><span class="dish-name">Russische Bites</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-crustaceans">Sc</span></span><span class="dish-desc">[Gefrituurde deegballetjes gevuld met Russische salade, Japanse mayo, keuze topping: blauwvintonijn / tonijn-ventresca / kwarteleitjes]</span><span class="dish-price">6,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Wakame Zeewiersalade</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Groen zeewier met umamismaak, licht knapperige textuur]</span><span class="dish-price">5,50€</span></div>
+    <div class="dish-row"><span class="dish-name">Kip &amp; Groente Gyoza's (4 st)</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span></span><span class="dish-desc"></span><span class="dish-price">5,50€</span></div>
+    <div class="dish-row"><span class="dish-name">Garnalen Tempura (6 st)</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span></span><span class="dish-desc">[Garnalentempura met Japans panko-ei]</span><span class="dish-price">15,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Garnalen &amp; Groente Gyoza's (4 st)</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span></span><span class="dish-desc"></span><span class="dish-price">5,50€</span></div>
+  </div>
+</div>
+
+<div class="page-divider"></div>
+
+<!-- TIRADITOS -->
+<div class="section-title"><span>Tiraditos</span></div>
+<div class="photo-section">
+  <div class="photo-col">
+    <img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/Fotos-pag10.png" alt="Tiraditos"/>
+  </div>
+  <div class="text-col">
+    <div class="dish-row"><span class="dish-name">Zalm (8 st)</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Dun gesneden zalm met kimchisaus en ponzu stylo Mizuki, aji-saus, ikura en micro mix garnering en negi]</span><span class="dish-price">13,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Tonijn (8 st)</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Dun gesneden tonijn, kizami wasabi tint, ponzu, micro mix garnering, negi en mini viooltje]</span><span class="dish-price">15,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Toro — Tonijnbuik (8 st)</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Dun gesneden tonijnbuik, wasabi kizami tint met kaviaar, ponzu, micro mix en negi]</span><span class="dish-price">16,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Citroenvis (8 st)</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-soy">S</span></span><span class="dish-desc">[Dun gesneden citroenvis, yuzu kosho tint, saus, mini viooltjes garnering, negi en ponzu]</span><span class="dish-price">14,00€</span></div>
+  </div>
+</div>
+
+<!-- SASHIMI -->
+<div class="section-title"><span>Sashimi</span></div>
+<div class="photo-section">
+  <div class="photo-col">
+    <img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/Fotos-pag11.png" alt="Sashimi"/>
+  </div>
+  <div class="text-col">
+    <div class="dish-row"><span class="dish-name">Zalm (4 st)</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc"></span><span class="dish-price">10,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Tonijn (4 st)</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc"></span><span class="dish-price">12,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Toro (4 st)</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc"></span><span class="dish-price">13,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Botervis (4 st)</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc"></span><span class="dish-price">10,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Moriawase (16 st)</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span></span><span class="dish-desc"></span><span class="dish-price">26,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Rode Carabinero Sashimi (1 st)</span><span class="dish-allergens"><span class="a-icon a-crustaceans">Sc</span></span><span class="dish-desc"></span><span class="dish-price">18,00€</span></div>
+  </div>
+</div>
+
+<div class="page-divider"></div>
+
+<!-- TATAKI -->
+<div class="section-title"><span>Tataki</span></div>
+<div class="dish-row"><span class="dish-name">Zalm</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Gesealde zalmschijven met wakame en ingemaakte groenten, sesam, micro mix en speciale Mizuki tataki-saus]</span><span class="dish-price">16,00€</span></div>
+<div class="dish-row"><span class="dish-name">Blauwvintonijn / Pittig</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Gesealde blauwvintonijnschijven met wakame en ingemaakte groenten, sesam, micro mix en speciale Mizuki tataki-saus]</span><span class="dish-price">18,00€</span></div>
+
+<!-- CEVICHE -->
+<div class="section-title"><span>Ceviche</span></div>
+<div class="dish-row"><span class="dish-name">Mizuki Klassieke Ceviche</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Witte vis, selderij, rode en witte ui, gember, limoen, zoete aardappel, zoete maïs, jalapeñopeper, koriander, olijfolie]</span><span class="dish-price">17,00€</span></div>
+
+<!-- TARTARE -->
+<div class="section-title"><span>Tartare</span></div>
+<div class="dish-row"><span class="dish-name">Zalm</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Zalmblokjes, avocado, negi, tobiko, ponzu, olie, sesam, kimchi, yuzusap en eidooier]</span><span class="dish-price">17,00€</span></div>
+<div class="dish-row"><span class="dish-name">Blauwvintonijn / Pittig</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Blauwvintonijnblokjes, avocado, negi, tobiko, ponzu, olie, sesam, kimchi, yuzusap en eidooier]</span><span class="dish-price">20,00€</span></div>
+
+<!-- KOUDE NIGIRIS -->
+<div class="section-title"><span>Koude Nigiri's — 2 st</span></div>
+<div class="dish-row"><span class="dish-name">Zalm</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc"></span><span class="dish-price">5,00€</span></div>
+<div class="dish-row"><span class="dish-name">Blauwvintonijn / Pittig</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc"></span><span class="dish-price">6,50€</span></div>
+<div class="dish-row"><span class="dish-name">Toro met Kaviaar</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span></span><span class="dish-desc"></span><span class="dish-price">7,50€</span></div>
+<div class="dish-row"><span class="dish-name">Botervis Truffel</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc"></span><span class="dish-price">7,00€</span></div>
+<div class="dish-row"><span class="dish-name">Negitoro</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Negi: Hollandseui + Toro: tonijnbuik]</span><span class="dish-price">7,00€</span></div>
+
+<div class="page-divider"></div>
+
+<!-- WARME NIGIRIS -->
+<div class="section-title"><span>Warme Nigiri's — 2 st</span></div>
+<p class="section-subtitle">Nigiri's bereid met sushirijst en warme topping, geflambeerd of met speciale sauzen</p>
+<div class="photo-section">
+  <div class="photo-col">
+    <img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/Fotos-pag12.png" alt="Warme Nigiri's"/>
+  </div>
+  <div class="text-col">
+    <div class="dish-row"><span class="dish-name">Zalm</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Zalmnigiri]</span><span class="dish-price">6,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Toro Foie</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Tonijnbuiknigiri met foie gras]</span><span class="dish-price">9,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Toro Truffel</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Tonijnbuiknigiri met truffel]</span><span class="dish-price">9,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Paling Foie</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Palingnigiri met foie gras]</span><span class="dish-price">9,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Paling Truffel</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Palingnigiri met truffel]</span><span class="dish-price">9,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Jakobsschelp Truffel Pittig</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Jakobsschelpnigiri met truffel en pittig]</span><span class="dish-price">8,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Botervis Truffel/Pittig</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Botervisnigiri met truffel of pittig]</span><span class="dish-price">7,50€</span></div>
+    <div class="dish-row"><span class="dish-name">Kwarteleitjes met Ventresca</span><span class="dish-allergens"><span class="a-icon a-eggs">E</span><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Nigiri met kwarteleitjes en ventresca]</span><span class="dish-price">9,00€</span></div>
+  </div>
+</div>
+
+<!-- GUNKAN -->
+<div class="section-title"><span>Gunkan</span></div>
+<p class="section-subtitle">Gunkan bereid met rijstbasis en norizeewier, met gehakte vistartare op de rijst</p>
+<div class="dish-row"><span class="dish-name">Zalmtartare Pittig</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Pittige zalmtartare]</span><span class="dish-price">5,00€</span></div>
+<div class="dish-row"><span class="dish-name">Tonijntartare / Pittig</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Pittige tonijntartare]</span><span class="dish-price">6,00€</span></div>
+
+<div class="page-divider"></div>
+
+<!-- KOUDE HOSOMAKI -->
+<div class="section-title"><span>Koude Hosomaki — 8 st</span></div>
+<p class="section-subtitle">Dunne makirollen met rijst, norizeewier en één hoofdingrediënt binnenin, koud geserveerd</p>
+<div class="photo-section">
+  <div class="photo-col">
+    <img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/Fotospag13.png" alt="Hosomaki"/>
+  </div>
+  <div class="text-col">
+    <div class="dish-row"><span class="dish-name">Komkommer</span><span class="dish-desc">[Komkommer hosomaki]</span><span class="dish-price">5,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Mango</span><span class="dish-desc">[Mango hosomaki]</span><span class="dish-price">6,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Avocado</span><span class="dish-desc">[Avocado hosomaki]</span><span class="dish-price">7,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Botervis</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Botervis hosomaki]</span><span class="dish-price">8,50€</span></div>
+    <div class="dish-row"><span class="dish-name">Zalm</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Zalm hosomaki]</span><span class="dish-price">9,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Negitoro</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Hollandseui + tonijnbuik]</span><span class="dish-price">10,50€</span></div>
+    <div class="dish-row"><span class="dish-name">Blauwvintonijn</span><span class="dish-allergens"><span class="a-icon a-fish">V</span></span><span class="dish-desc">[Blauwvintonijn hosomaki]</span><span class="dish-price">11,00€</span></div>
+  </div>
+</div>
+
+<!-- WARME HOSOMAKI -->
+<div class="section-title"><span>Warme Hosomaki — 8 st</span></div>
+<p class="section-subtitle">Dunne makirollen met avocadotempurabasis, Japanse mayosaus en tartare topping</p>
+<div class="dish-row"><span class="dish-name">Zalm</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-nuts">N</span></span><span class="dish-desc">[Avocadotempura makibasis, Japanse mayosaus, zalmtartare topping / pittig]</span><span class="dish-price">12,00€</span></div>
+<div class="dish-row"><span class="dish-name">Tonijn</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-nuts">N</span></span><span class="dish-desc">[Avocadotempura makibasis, Japanse mayosaus, tonijntartare topping / pittig]</span><span class="dish-price">14,00€</span></div>
+
+<div class="page-divider"></div>
+
+<!-- FUTOMAKI -->
+<div class="section-title"><span>Futomaki — 5 st / 10 st</span></div>
+<p class="section-subtitle">Dikke makirollen met meerdere ingrediënten binnenin. Verkrijgbaar in 5 st en 10 st</p>
+<div class="photo-section">
+  <div class="photo-col">
+    <img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/Fotos-pag14.png" alt="Futomaki"/>
+  </div>
+  <div class="text-col">
+    <div class="dish-row"><span class="dish-name">Veganistisch</span><span class="dish-allergens"><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Avocado, komkommer, paprika, gemengde sesam, geroosterde bruine paprika, mango, sla, wakame]</span><span class="dish-price">7,50€ / 13,50€</span></div>
+    <div class="dish-row"><span class="dish-name">Gemengd</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span></span><span class="dish-desc">[Zalm, tonijn, avocado, komkommer, mango, gemengde sesam, mayokimchi-saus]</span><span class="dish-price">9,50€ / 18,00€</span></div>
+  </div>
+</div>
+
+<!-- TEMAKI -->
+<div class="section-title"><span>Temaki — 1 st</span></div>
+<p class="section-subtitle">Norizeewier-kegels gevuld met rijst en diverse ingrediënten, met de hand gerold</p>
+<div class="dish-row"><span class="dish-name">Zalm / Pittig</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span></span><span class="dish-desc">[Zalm, avocado, roomkaas, sesam kimchi, knapperige ui, shichimi / pittig]</span><span class="dish-price">6,00€</span></div>
+<div class="dish-row"><span class="dish-name">Tonijn / Pittig</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span></span><span class="dish-desc">[Blauwvintonijn, avocado, mayokimchi, sesam kimchi, knapperige ui, shichimi / pittig]</span><span class="dish-price">7,00€</span></div>
+<div class="dish-row"><span class="dish-name">Soft Shell Crab</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-wheat">T</span></span><span class="dish-desc">[Soft shell crab tempura, avocado, shisoblad, mayo kimchi-saus, sesam kimchi, gebakken ui]</span><span class="dish-price">8,50€</span></div>
+
+<div class="page-divider"></div>
+
+<!-- KOUDE URUMAKI -->
+<div class="section-title"><span>Koude Urumaki — 4 st / 8 st</span></div>
+<p class="section-subtitle">Inside-out makirollen met rijst aan de buitenkant en norizeewier binnenin. Verkrijgbaar in 4 st en 8 st</p>
+<div class="photo-section">
+  <div class="photo-col">
+    <img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/Fotos-pag15.png" alt="Urumaki"/>
+  </div>
+  <div class="text-col">
+    <div class="dish-row"><span class="dish-name">Mizuki Roll</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-milk">M</span></span><span class="dish-desc">[Zalm, avocado, roomkaas, sesam, kimchi]</span><span class="dish-price">8,00€ / 15,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Spicy Tuna</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-soy">S</span><span class="a-icon a-eggs">E</span></span><span class="dish-desc">[Blauwvintonijn, avocado, mayo kimchi, sesam kimchi, pittige saus, shichimi, bieslook]</span><span class="dish-price">10,00€ / 19,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Tropical</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-soy">S</span></span><span class="dish-desc">[Krab, avocado, mayo kimchi, wakamezeewier, Mizuki tropische saus]</span><span class="dish-price">8,50€ / 15,50€</span></div>
+    <div class="dish-row"><span class="dish-name">Crazy Tuna</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-milk">M</span></span><span class="dish-desc">[Roomkaas, aardbei, blauwvintonijn topping, unagi-saus]</span><span class="dish-price">10,00€ / 19,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Mango Tango</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-soy">S</span><span class="a-icon a-eggs">E</span></span><span class="dish-desc">[Zalm, avocado, mayo kimchi, mangotartare en tobiko topping]</span><span class="dish-price">8,50€ / 16,00€</span></div>
+  </div>
+</div>
+
+<!-- WARME URUMAKI -->
+<div class="section-title"><span>Warme Urumaki — 4 st / 8 st</span></div>
+<p class="section-subtitle">Inside-out makirollen met warme ingrediënten, geflambeerd of tempura. Verkrijgbaar in 4 st en 8 st</p>
+<div class="dish-row"><span class="dish-name">Dragon Roll</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-wheat">T</span></span><span class="dish-desc">[Garnalentempura, avocado, mayo kimchi-saus, geflambeerde zalmtopping en teriyaki-saus]</span><span class="dish-price">9,00€ / 17,00€</span></div>
+<div class="dish-row"><span class="dish-name">Toro Foie/Truffel</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-wheat">T</span></span><span class="dish-desc">[Tonijn, avocado, mayo kimchi-saus, geflambeerde buiktopping naar keuze foie of truffel en kaboyaki-saus]</span><span class="dish-price">10,00€ / 19,00€</span></div>
+<div class="dish-row"><span class="dish-name">Botervis Roll</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span></span><span class="dish-desc">[Krab, Japanse mayonaise, avocado, botervistopping]</span><span class="dish-price">8,50€ / 16,00€</span></div>
+<div class="dish-row"><span class="dish-name">Unagi Roll met Foie</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-wheat">T</span></span><span class="dish-desc">[Gebraadde paling, avocado, geflambeerde palingtopping, foie en kaboyaki-saus]</span><span class="dish-price">10,00€ / 19,00€</span></div>
+<div class="dish-row"><span class="dish-name">Unagi Roll met Truffel</span><span class="dish-allergens"><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-wheat">T</span></span><span class="dish-desc">[Gebraadde paling, avocado, geflambeerde palingtopping, truffel en kaboyaki-saus]</span><span class="dish-price">10,00€ / 19,00€</span></div>
+
+<div class="page-divider"></div>
+
+<!-- TEMPURA ROLLEN -->
+<div class="section-title"><span>Tempura Roll — 5 st / 10 st</span></div>
+<p class="section-subtitle">Rollen gepaneerd in tempura en gefrituurd, met diverse vullingen. Verkrijgbaar in 5 st en 10 st</p>
+<div class="photo-section">
+  <div class="photo-col">
+    <img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/Fotos-pag16.png" alt="Tempura Rollen"/>
+  </div>
+  <div class="text-col">
+    <div class="dish-row"><span class="dish-name">Hot Mizuki</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Zalm, avocado, roomkaas, kimchisaus]</span><span class="dish-price">8,50€ / 16,00€</span></div>
+    <div class="dish-row"><span class="dish-name">Hot Gemengd</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Zalm, tonijn, avocado, roomkaas, kenyaki-saus, mayo kimchi]</span><span class="dish-price">11,00€ / 20,00€</span></div>
+  </div>
+</div>
+
+<!-- POKES -->
+<div class="section-title"><span>Poké Bowls</span></div>
+<p class="section-subtitle">Sushirijstkommen met verse blokjes ingrediënten, Japanse sauzen en micro mix</p>
+<div class="dish-row"><span class="dish-name">Zalm</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Sushirijst, zalmblokjes, mango, avocado, edamame, wakamezeewier, Hollandse komkommer, knapperige ui, sesam, ponzu-saus, mayo kimchi, teriyaki-saus, micro mix]</span><span class="dish-price">16,90€</span></div>
+<div class="dish-row"><span class="dish-name">Tonijn</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-fish">V</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Sushirijst, blauwvintonijnblokjes, mango, avocado, edamame, wakamezeewier, Hollandse komkommer, knapperige ui, sesam, ponzu-saus, mayo kimchi, teriyaki-saus, micro mix]</span><span class="dish-price">17,90€</span></div>
+<div class="dish-row"><span class="dish-name">Kip Teriyaki</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Sushirijst, yakitorikipblokjes, mango, avocado, edamame, wakamezeewier, Hollandse komkommer, knapperige ui, sesam, ponzu-saus, mayo kimchi, teriyaki-saus, micro mix]</span><span class="dish-price">16,90€</span></div>
+<div class="dish-row"><span class="dish-name">Veganistisch</span><span class="dish-allergens"><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span></span><span class="dish-desc">[Sushirijst, witte tofublokjes, mango, avocado, Hollandse komkommer, edamame, knapperige ui, sesam, tonkatsusaus, ponzu-saus, micro mix]</span><span class="dish-price">14,50€</span></div>
+
+<div class="page-divider"></div>
+
+<!-- RAMEN -->
+<div class="section-title"><span>Ramen</span></div>
+<p class="section-subtitle">Japanse noedelsoep met Miso- of Original-bouillon, sojascheuten, naruto, rode ui, negi, gekookt ei, shiitake en shimeji-paddenstoel</p>
+<div class="dish-row"><span class="dish-name">Mizuki</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Ramen met Miso- of Original-bouillon, sojascheuten, naruto, rode ui, negi, gekookt ei, shiitake, shimeji-paddenstoel]</span><span class="dish-price">18,00€</span></div>
+<div class="dish-row"><span class="dish-name">Torikatsu</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Ramen met Miso- of Original-bouillon, gepaneerde kip, sojascheuten, naruto, rode ui, negi, gekookt ei, shiitake, shimeji-paddenstoel]</span><span class="dish-price">20,00€</span></div>
+<div class="dish-row"><span class="dish-name">Yesai Ramen (Veganistisch)</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Veganistische ramen met groentebouillon, sojascheuten, rode ui, negi, shiitake, shimeji-paddenstoel]</span><span class="dish-price">13,00€</span></div>
+
+<!-- YAKITORI -->
+<div class="section-title"><span>Yakitori — 2 st</span></div>
+<p class="section-subtitle">Japanse gegrilde spiesjes op sushirijstbasis met specifieke sauzen</p>
+<div class="dish-row"><span class="dish-name">Kip</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Kipspiesjes, sushirijstbasis, yakitori-saus]</span><span class="dish-price">12,00€</span></div>
+<div class="dish-row"><span class="dish-name">Zalm</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Zalmspiesjes, sushirijstbasis, wakame, Japanse teriyaki-saus]</span><span class="dish-price">13,00€</span></div>
+
+<div class="page-divider"></div>
+
+<!-- YAKIMESHI -->
+<div class="section-title"><span>Yakimeshi (Gebakken Rijst)</span></div>
+<p class="section-subtitle">Wok-gebakken rijst met groenten en ei. Verkrijgbaar met verschillende eiwitten</p>
+<div class="dish-row"><span class="dish-name">Kip</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Gebakken rijst met groenten, ei en kip]</span><span class="dish-price">13,00€</span></div>
+<div class="dish-row"><span class="dish-name">Garnaal</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Gebakken rijst met groenten, ei en garnaal]</span><span class="dish-price">15,00€</span></div>
+<div class="dish-row"><span class="dish-name">Tofu (Veganistisch)</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Gebakken rijst met groenten en tofu (zonder ei)]</span><span class="dish-price">12,00€</span></div>
+<div class="dish-row"><span class="dish-name">Gemengd (Kip en Garnaal)</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Gebakken rijst met groenten, ei, kip en garnaal]</span><span class="dish-price">17,00€</span></div>
+
+<!-- NOEDLES -->
+<div class="section-title"><span>Noedels</span></div>
+<p class="section-subtitle">Soba-noedels wok-gebakken met groenten, ei, yakisoba-saus en katsuobushi (gedroogde bonitovlokken)</p>
+<div class="dish-row"><span class="dish-name">Tofu (Veganistisch)</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Soba-noedels met groenten, tofu en yakisoba-saus]</span><span class="dish-price">12,00€</span></div>
+<div class="dish-row"><span class="dish-name">Kip</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Soba-noedels met groenten, ei, kip, yakisoba-saus en katsuobushi]</span><span class="dish-price">13,00€</span></div>
+<div class="dish-row"><span class="dish-name">Garnaal</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Soba-noedels met groenten, ei, garnaal, yakisoba-saus en katsuobushi]</span><span class="dish-price">15,00€</span></div>
+<div class="dish-row"><span class="dish-name">Gemengd (Kip en Garnaal)</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-crustaceans">Sc</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Soba-noedels met groenten, ei, kip en garnaal, yakisoba-saus en katsuobushi]</span><span class="dish-price">17,00€</span></div>
+
+<div class="page-divider"></div>
+
+<!-- SPECIALE GERECHTEN -->
+<div class="section-title"><span>Speciale Gerechten</span></div>
+<p class="section-subtitle">Hoofdgerechten uit de Japanse keuken met premium ingrediënten en speciale bereidingen</p>
+<div class="dish-row"><span class="dish-name">Eendenborst Teppan</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Gegrilde eendenborst met roergebakken groenten, unagi-saus en tonkatsu]</span><span class="dish-price">18,00€</span></div>
+<div class="dish-row"><span class="dish-name">Zalm Teriyaki 250g</span><span class="dish-allergens"><span class="a-icon a-wheat">T</span><span class="a-icon a-fish">V</span><span class="a-icon a-eggs">E</span><span class="a-icon a-soy">S</span><span class="a-icon a-sesame">Se</span><span class="a-icon a-sulfites">Su</span></span><span class="dish-desc">[Teriyaki gemarineerde zalm uit de oven, geserveerd met sushirijst]</span><span class="dish-price">19,00€</span></div>
+
+<!-- DESSERTS -->
+<div class="section-title"><span>Desserts</span></div>
+<p class="section-subtitle">Selectie van Japanse en fusion desserts om de culinaire ervaring af te sluiten</p>
+<div class="dish-row"><span class="dish-name">Kaastaart</span><span class="dish-allergens"><span class="a-icon a-milk">M</span><span class="a-icon a-eggs">E</span><span class="a-icon a-wheat">T</span></span><span class="dish-desc">[Japanse kaastaart]</span><span class="dish-price">6,00€</span></div>
+<div class="dish-row"><span class="dish-name">Mochi's (2 st)</span><span class="dish-allergens"><span class="a-icon a-soy">S</span><span class="a-icon a-milk">M</span><span class="a-icon a-nuts">N</span><span class="a-icon a-wheat">T</span></span><span class="dish-desc">[Rijstmochi met opties: Chocolade, Pistache, Kokos, Groene thee]</span><span class="dish-price">5,50€</span></div>
+<div class="dish-row"><span class="dish-name">Chocolade Fondant</span><span class="dish-allergens"><span class="a-icon a-milk">M</span><span class="a-icon a-eggs">E</span><span class="a-icon a-wheat">T</span><span class="a-icon a-soy">S</span></span><span class="dish-desc">[Chocoladebiscuit met vloeibare kern]</span><span class="dish-price">5,50€</span></div>
+
+<div class="page-divider"></div>
+
+<!-- ALLERGEENINFO & ANISAKIS -->
+<div class="logo-center" style="margin-bottom:16px"><img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/LogoMIZUKI.png" alt="Mizuki"/></div>
+
+<div class="anisakis-box">
+  <h3>Anisakis Preventie</h3>
+  <h4>Prevención Anisakis</h4>
+  <p>Vis of inktvis die rauw of onvoldoende gaar wordt geserveerd in dit etablissement voldoet aan de bepalingen van <strong>Real Decreto 1021/2022</strong>, van 13 december, betreffende de preventie van anisakis.</p>
+  <div class="warning-box">
+    <strong>Botervis Waarschuwing:</strong> Botervis kan gastro-intestinale effecten veroorzaken. Het wordt aanbevolen om het personeel van het restaurant te raadplegen bij twijfel over een ingrediënt of allergeen.
+  </div>
+</div>
+
+<!-- ALLERGEEN LEGENDA -->
+<div class="section-title" style="margin-top:30px"><span>Allergeeninformatie</span></div>
+<p style="text-align:center;font-size:10px;color:var(--text-dim);margin-bottom:16px;font-style:italic">Overeenkomstig de geldende regelgeving informeert restaurant Mizuki Sushi Bar &amp; Cocktail over de volgende allergenen in zijn gerechten:</p>
+
+<div class="allergen-legend">
+  <div class="a-item"><span class="a-icon a-wheat">🌾</span><span class="a-label">1. Tarwe (Gluten)</span></div>
+  <div class="a-item"><span class="a-icon a-crustaceans">🦀</span><span class="a-label">2. Schaaldieren</span></div>
+  <div class="a-item"><span class="a-icon a-eggs">🥚</span><span class="a-label">3. Eieren</span></div>
+  <div class="a-item"><span class="a-icon a-fish">🐟</span><span class="a-label">4. Vis</span></div>
+  <div class="a-item"><span class="a-icon a-peanuts">🥜</span><span class="a-label">5. Pinda's</span></div>
+  <div class="a-item"><span class="a-icon a-soy">🫘</span><span class="a-label">6. Soja</span></div>
+  <div class="a-item"><span class="a-icon a-milk">🥛</span><span class="a-label">7. Melk</span></div>
+  <div class="a-item"><span class="a-icon a-nuts">🌰</span><span class="a-label">8. Noten</span></div>
+  <div class="a-item"><span class="a-icon a-celery">🥬</span><span class="a-label">9. Selderij</span></div>
+  <div class="a-item"><span class="a-icon a-mustard">🟡</span><span class="a-label">10. Mosterd</span></div>
+  <div class="a-item"><span class="a-icon a-sesame">⚪</span><span class="a-label">11. Sesam</span></div>
+  <div class="a-item"><span class="a-icon a-sulfites">⚗</span><span class="a-label">12. Sulfieten</span></div>
+  <div class="a-item"><span class="a-icon a-lupin">🌻</span><span class="a-label">13. Lupine</span></div>
+  <div class="a-item"><span class="a-icon a-mollusks">🐚</span><span class="a-label">14. Weekdieren</span></div>
+</div>
+
+<div style="text-align:center;margin-top:10px">
+  <img src="https://raw.githubusercontent.com/BocaditoCoin/Mizuki-sushi-coctail-bar/main/iconos-alergias-dos-filas.png" alt="Allergeen iconen" style="max-width:100%;height:auto;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.4)"/>
+</div>
+
+<div style="text-align:center;margin-top:50px;padding-top:20px;border-top:1px solid rgba(201,148,58,0.2)">
+  <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;color:var(--text-dim);text-transform:uppercase">&copy; 2025 Mizuki Sushi Bar &amp; Cocktail</p>
+</div>
+
+</div>
+</body>
+</html>
